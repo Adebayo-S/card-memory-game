@@ -4,6 +4,8 @@
 const cardList = [...document.querySelectorAll(".card")];
 const restart = document.querySelector(".restart");
 const deck = document.querySelector(".deck");
+const moves = document.querySelector(".moves");
+const stars = document.querySelectorAll(".fa-star");
 let openCards = [];
 let matchedCards = [];
 
@@ -20,9 +22,17 @@ const matchAndLock = () => {
     openCards = [];
 }
 
+const closeMatchingCards = () => {
+    for (let i = 0; i < matchedCards.length; i++) {
+        matchedCards[i].classList.remove("open", "show", "match");
+    }
+    matchedCards = [];
+}
+
 const closeCards = () => {
         for (let i = 0; i < openCards.length; i++) {
             openCards[i].classList.remove("open", "show");
+            openCards[i].clickable = true;
         }
         openCards = [];
 }
@@ -31,6 +41,22 @@ const incrementMove = () => {
     const moves = document.querySelector(".moves");
     moves.innerHTML = parseInt(moves.innerHTML) + 1;
 }
+
+const displayFinalScore = () => {
+    const finalScore = document.querySelector(".final-score");
+    const finalStars = document.querySelector(".final-stars");
+    const finalMoves = document.querySelector(".final-moves");
+    const finalTime = document.querySelector(".final-time");
+
+    finalScore.innerHTML = document.querySelector(".moves").innerHTML;
+    finalStars.innerHTML = document.querySelector(".stars").innerHTML;
+    finalMoves.innerHTML = document.querySelector(".moves").innerHTML;
+    finalTime.innerHTML = document.querySelector(".timer").innerHTML;
+
+    document.querySelector(".modal").style.display = "block";
+}
+
+
 
 /*
  * Display the cards on the page
@@ -43,10 +69,14 @@ const incrementMove = () => {
 window.onload = shuffle(cardList);
 restart.addEventListener("click", () => {
     shuffle(cardList);
+    moves.innerHTML = 0;
+    stars[0].classList.remove("fa-star-o");
+    stars[1].classList.remove("fa-star-o");
+    stars[2].classList.add("fa-star-o");
 })
-addCardEventListener(cards);
 
-// Shuffle function from http://stackoverflow.com/a/2450976
+
+// Shuffle function adapted rom http://stackoverflow.com/a/2450976
 function shuffle(cards) {
     var currentIndex = cards.length, temporaryValue, randomIndex;
 
@@ -58,7 +88,12 @@ function shuffle(cards) {
         cards[randomIndex] = temporaryValue;
     }
 
-    return cards;
+
+    closeCards();
+    closeMatchingCards();
+
+    deck.replaceChildren(...cards);
+    addCardEventListener(cards);
 }
 
 
@@ -79,20 +114,21 @@ function addCardEventListener(cards){
         cards[i].addEventListener("click", function() {
             if (cards[i].clickable) {
                 displayCard(cards[i]);
+                cards[i].clickable = false;
                 incrementMove();
                 openCards.push(cards[i]);
+                console.log("openCards: " + openCards);
                 if (openCards.length == 2) {
-                    if (openCards[0].lastElementChild == openCards[1].lastElementChild) {
+                    if (openCards[0].innerHTML == openCards[1].innerHTML) {
                         matchAndLock();
                         if (matchedCards.length == 16) {
                             displayFinalScore();
                         }
                     } else {
-                        setTimeout(closeCards, 700);
+                        setTimeout(closeCards, 500);
                     }
                 }
             }
-            openCard(cards[i]);
         });
     }
 };
