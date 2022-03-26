@@ -1,7 +1,9 @@
 /*
  * Create a list that holds all of your cards
  */
-
+const cardList = [...document.querySelectorAll(".card")];
+const restart = document.querySelector(".restart");
+const deck = document.querySelector(".deck");
 
 /*
  * Display the cards on the page
@@ -10,19 +12,25 @@
  *   - add each card's HTML to the page
  */
 
+/* shuffle cards on load or on restart */
+window.onload = shuffle(cardList);
+restart.addEventListener("click", () => {
+    shuffle(cardList);
+})
+
 // Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+function shuffle(cards) {
+    var currentIndex = cards.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+        temporaryValue = cards[currentIndex];
+        cards[currentIndex] = cards[randomIndex];
+        cards[randomIndex] = temporaryValue;
     }
 
-    return array;
+    return cards;
 }
 
 
