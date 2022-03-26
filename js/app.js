@@ -4,6 +4,33 @@
 const cardList = [...document.querySelectorAll(".card")];
 const restart = document.querySelector(".restart");
 const deck = document.querySelector(".deck");
+let openCards = [];
+let matchedCards = [];
+
+const displayCard = (card) => {
+    card.classList.add("open", "show");
+}
+
+const matchAndLock = () => {
+    for (let i = 0; i < openCards.length; i++) {
+        openCards[i].classList.add("match");
+        openCards[i].clickable = false;
+        matchedCards.push(openCards[i]);
+    }
+    openCards = [];
+}
+
+const closeCards = () => {
+        for (let i = 0; i < openCards.length; i++) {
+            openCards[i].classList.remove("open", "show");
+        }
+        openCards = [];
+}
+
+const incrementMove = () => {
+    const moves = document.querySelector(".moves");
+    moves.innerHTML = parseInt(moves.innerHTML) + 1;
+}
 
 /*
  * Display the cards on the page
@@ -17,6 +44,7 @@ window.onload = shuffle(cardList);
 restart.addEventListener("click", () => {
     shuffle(cardList);
 })
+addCardEventListener(cards);
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(cards) {
@@ -44,3 +72,27 @@ function shuffle(cards) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+function addCardEventListener(cards){
+    for (let i = 0; i < cards.length; i++) {
+        cards[i].clickable = true;
+        cards[i].addEventListener("click", function() {
+            if (cards[i].clickable) {
+                displayCard(cards[i]);
+                incrementMove();
+                openCards.push(cards[i]);
+                if (openCards.length == 2) {
+                    if (openCards[0].lastElementChild == openCards[1].lastElementChild) {
+                        matchAndLock();
+                        if (matchedCards.length == 16) {
+                            displayFinalScore();
+                        }
+                    } else {
+                        setTimeout(closeCards, 700);
+                    }
+                }
+            }
+            openCard(cards[i]);
+        });
+    }
+};
