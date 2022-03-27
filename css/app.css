@@ -54,12 +54,13 @@ h1 {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    text-align: center;
 }
 
 .title-text {
     font-family: 'Rockwell','Open Sans', sans-serif;
     font-weight: 300;
-    font-size: 3em;
+    font-size: 4em;
     color: #ffffff;
 }
 
@@ -110,7 +111,7 @@ h1 {
     text-align: left;
 }
 
-.gameover {
+.d-none {
     display: none;
 }
 
@@ -120,6 +121,59 @@ h1 {
 
 .dropdown-menu:active .dropdown-content {
     display: block;
+}
+
+.dropdown-item:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.start-text {
+    font-family: 'Rockwell','Open Sans', sans-serif;
+    font-weight: 300;
+    text-align: center;
+    font-size: 3em;
+    color: #02b3e4;
+}
+
+.gameover .title-text {
+    color: #e42626;
+}
+
+.message-text {
+    font-family: 'Rockwell','Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 2em;
+    color: #ffffff;
+}
+
+.message-text:last-child {
+    margin-top: -20px;
+    margin-bottom: 60px;
+}
+
+.var {
+    color: rgb(218, 187, 13);
+}
+
+.btn {
+    background: #02ccba;
+    color: #000000;
+    font-family: 'Rockwell','Open Sans', sans-serif;
+    font-weight: 500;
+    font-size: 1.5em;
+    padding: 0.7em;
+    margin: auto;
+    border-radius: 0.5em;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
 /*

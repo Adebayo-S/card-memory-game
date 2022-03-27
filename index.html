@@ -15,7 +15,7 @@
             <h1>Matching Game</h1>
         </header>
 
-        <section class="modal start">
+        <section class="modal start d-none">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="title-text">Match the cards in time</h2>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <p>Click to Start</p>
+                    <p class="start-text">Click to Start</p>
                 </div>
             </div>
         </section>
@@ -40,14 +40,14 @@
         <section class="modal gameover">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>Game Over</h2>
+                    <h2 class="title-text">Game Over</h2>
                 </div>
                 <div class="modal-body">
-                    <p>You found <span class="found"></span> matches in <span class="time"></span> seconds.</p>
-                    <p>Do you want to play again?</p>
+                    <p class="message-text">You were able to find <span class="found var"></span> matches in <span class="time var"></span> seconds.</p>
+                    <p class="message-text">Do you want to play again?</p>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary play-again">Play Again</button>
+                    <button class="btn">Play Again</button>
                 </div>
             </div>
         </section>
