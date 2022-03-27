@@ -15,6 +15,43 @@
             <h1>Matching Game</h1>
         </header>
 
+        <section class="modal start">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="title-text">Match the cards in time</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="dropdown-menu">
+                        <button class="btn-drop">Select Level 👇</button>
+                        <div class="dropdown-content">
+                            <button class="dropdown-item">Easy 👶</button>
+                            <button class="dropdown-item">Regular 😌</button>
+                            <button class="dropdown-item">Hard 😱</button>
+                            <button class="dropdown-item">Hacker 😡</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <p>Click to Start</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="modal gameover">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Game Over</h2>
+                </div>
+                <div class="modal-body">
+                    <p>You found <span class="found"></span> matches in <span class="time"></span> seconds.</p>
+                    <p>Do you want to play again?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary play-again">Play Again</button>
+                </div>
+            </div>
+        </section>
+
         <section class="score-panel">
         	<ul class="stars">
         		<li><i class="fa fa-star"></i></li>
