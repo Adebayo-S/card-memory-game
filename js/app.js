@@ -6,6 +6,36 @@ const restart = document.querySelector(".restart");
 const deck = document.querySelector(".deck");
 const moves = document.querySelector(".moves");
 const stars = document.querySelectorAll(".fa-star");
+
+// buttons
+const btnEasy = document.querySelector(".btn-easy");
+const btnMedium = document.querySelector(".btn-medium");
+const btnHard = document.querySelector(".btn-hard");
+const btnX = document.querySelector(".btn-x");
+
+btnEasy.addEventListener("click", function() {
+    btnEasy.classList.add("selected");
+    btnMedium.classList.remove("selected");
+    btnHard.classList.remove("selected");
+    shuffle(cardList);
+    moves.innerHTML = 0;
+    clearInterval(timer);
+    timer = setInterval(startTimer, 1000);
+})
+
+
+const startGame = () => {
+    shuffle(cardList);
+    moves.innerHTML = 0;
+    clearInterval(timer);
+    timer = setInterval(startTimer, 1000);
+}
+
+const startTimer = () => {
+    const timer = document.querySelector(".timer");
+    timer.innerHTML = parseInt(timer.innerHTML) + 1;
+}
+
 let openCards = [];
 let matchedCards = [];
 
@@ -66,17 +96,22 @@ const displayFinalScore = () => {
  */
 
 /* shuffle cards on load or on restart */
-window.onload = shuffle(cardList);
+window.onload = start(cardList);
 restart.addEventListener("click", () => {
-    shuffle(cardList);
-    moves.innerHTML = 0;
+    let shuffledCards = shuffle(deck.children);
+    deck.replaceChildren(...shuffledCards);
     stars[0].classList.remove("fa-star-o");
     stars[1].classList.remove("fa-star-o");
     stars[2].classList.add("fa-star-o");
 })
 
+function start(cardList) {
+    let shuffledCards = shuffle(cardList);
+    addCardEventListener(shuffledCards);
+    deck.replaceChildren(...shuffledCards);
+}
 
-// Shuffle function adapted rom http://stackoverflow.com/a/2450976
+// Shuffle function adapted from http://stackoverflow.com/a/2450976
 function shuffle(cards) {
     var currentIndex = cards.length, temporaryValue, randomIndex;
 
@@ -88,12 +123,11 @@ function shuffle(cards) {
         cards[randomIndex] = temporaryValue;
     }
 
-
     closeCards();
     closeMatchingCards();
+    moves.innerHTML = 0;
 
-    deck.replaceChildren(...cards);
-    addCardEventListener(cards);
+    return cards;
 }
 
 
