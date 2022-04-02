@@ -101,6 +101,31 @@ btnEasy.addEventListener("click", function() {
     timeleft = 50;
 })
 
+btnMedium.addEventListener("click", function() {
+    easyText.classList.remove("selected");
+    mediumText.classList.add("selected");
+    hardText.classList.remove("selected");
+    xText.classList.remove("selected");
+    timeleft = 30;
+})
+
+btnHard.addEventListener("click", function() {
+    easyText.classList.remove("selected");
+    mediumText.classList.remove("selected");
+    hardText.classList.add("selected");
+    xText.classList.remove("selected");
+    timeleft = 15;
+})
+
+btnX.addEventListener("click", function() {
+    xText.classList.add("selected");
+    easyText.classList.remove("selected");
+    mediumText.classList.remove("selected");
+    hardText.classList.remove("selected");
+    timeleft = 5;
+})
+
+
 start.addEventListener("click", function() {
     startGame(timeleft);
 })
