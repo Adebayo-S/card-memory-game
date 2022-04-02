@@ -47,12 +47,14 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     z-index: 10;
 }
 
 .modal-content {
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
     text-align: center;
 }
@@ -141,10 +143,24 @@ h1 {
 }
 
 .modal-footer {
+    position: absolute;
+    bottom: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.footer-text {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    font-weight: 300;
+    font-size: 0.8em;
+    color: #ffffff;
+}
+
+.socials {
+    text-align: center;
 }
 
 .start-text {

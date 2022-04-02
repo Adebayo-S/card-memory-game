@@ -13,6 +13,7 @@ const btnMedium = document.querySelector(".btn-medium");
 const btnHard = document.querySelector(".btn-hard");
 const btnX = document.querySelector(".btn-x");
 const start = document.querySelector(".start");
+const playAgain = document.querySelector(".play-again");
 const dropdown = document.querySelector(".dropdown-content");
 const dropdownBtn = document.querySelector(".btn-drop");
 
@@ -23,7 +24,9 @@ const hardText = document.querySelector(".hard-text");
 const xText = document.querySelector(".x-text");
 
 //timer
-let timeleft = 50;
+let timeLeft = 50;
+let setTime;
+let resetTime = false;
 
 let openCards = [];
 let matchedCards = [];
@@ -89,7 +92,13 @@ const startGame = (timeLeft) => {
     document.querySelector(".start-mode").style.display = "none";
 
     function startTimer() {
+
         const countdown = document.querySelector(".countdown");
+
+        if (resetTime) {
+            timeLeft = setTime;
+            resetTime = false;
+        }
         if (timeLeft <= 0) {
             countdown.innerHTML = "0";
             clearInterval(timer);
@@ -113,7 +122,8 @@ btnEasy.addEventListener("click", function() {
     hardText.classList.remove("selected");
     xText.classList.remove("selected");
     dropdown.classList.remove("show");
-    timeleft = 50;
+    timeLeft = 50;
+    setTime = timeLeft;
 })
 
 btnMedium.addEventListener("click", function() {
@@ -122,8 +132,9 @@ btnMedium.addEventListener("click", function() {
     hardText.classList.remove("selected");
     xText.classList.remove("selected");
     dropdown.classList.remove("show");
-    timeleft = 30;
-    console.log(timeleft);
+    timeLeft = 30;
+    console.log(timeLeft);
+    setTime = timeLeft;
 })
 
 btnHard.addEventListener("click", function() {
@@ -132,7 +143,8 @@ btnHard.addEventListener("click", function() {
     hardText.classList.add("selected");
     xText.classList.remove("selected");
     dropdown.classList.remove("show");
-    timeleft = 15;
+    timeLeft = 15;
+    setTime = timeLeft;
 })
 
 btnX.addEventListener("click", function() {
@@ -141,12 +153,17 @@ btnX.addEventListener("click", function() {
     regularText.classList.remove("selected");
     hardText.classList.remove("selected");
     dropdown.classList.remove("show");
-    timeleft = 5;
+    timeLeft = 5;
+    setTime = timeLeft;
 })
 
 
 start.addEventListener("click", function() {
-    startGame(timeleft);
+    startGame(timeLeft);
+})
+
+playAgain.addEventListener("click", function() {
+    location.reload();
 })
 
 
@@ -165,6 +182,7 @@ restart.addEventListener("click", () => {
     stars[0].classList.remove("fa-star-o");
     stars[1].classList.remove("fa-star-o");
     stars[2].classList.add("fa-star-o");
+    resetTime = true;
 })
 
 
