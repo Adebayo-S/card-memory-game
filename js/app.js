@@ -12,29 +12,16 @@ const btnEasy = document.querySelector(".btn-easy");
 const btnMedium = document.querySelector(".btn-medium");
 const btnHard = document.querySelector(".btn-hard");
 const btnX = document.querySelector(".btn-x");
+const start = document.querySelector(".start");
 
-btnEasy.addEventListener("click", function() {
-    btnEasy.classList.add("selected");
-    btnMedium.classList.remove("selected");
-    btnHard.classList.remove("selected");
-    shuffle(cardList);
-    moves.innerHTML = 0;
-    clearInterval(timer);
-    timer = setInterval(startTimer, 1000);
-})
+//mode alert texts
+const easyText = document.querySelector(".easy-text");
+const mediumText = document.querySelector(".medium-text");
+const hardText = document.querySelector(".hard-text");
+const xText = document.querySelector(".x-text");
 
-
-const startGame = () => {
-    shuffle(cardList);
-    moves.innerHTML = 0;
-    clearInterval(timer);
-    timer = setInterval(startTimer, 1000);
-}
-
-const startTimer = () => {
-    const timer = document.querySelector(".timer");
-    timer.innerHTML = parseInt(timer.innerHTML) + 1;
-}
+//timer
+let timeleft = 50;
 
 let openCards = [];
 let matchedCards = [];
@@ -86,6 +73,37 @@ const displayFinalScore = () => {
     document.querySelector(".modal").style.display = "block";
 }
 
+const startGame = (timeLeft) => {
+    let shuffledCards = shuffle(cardList);
+    addCardEventListener(shuffledCards);
+    deck.replaceChildren(...shuffledCards);
+
+    function startTimer() {
+        const countdown = document.querySelector(".countdown");
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            countdown.innerHTML = "0";
+            displayFinalScore();
+        } else {
+            countdown.innerHTML = "⏱: " + timeLeft;
+        }
+        timeLeft--;
+    };
+
+    setInterval(startTimer, 1000);
+}
+
+btnEasy.addEventListener("click", function() {
+    easyText.classList.add("selected");
+    mediumText.classList.remove("selected");
+    hardText.classList.remove("selected");
+    xText.classList.remove("selected");
+    timeleft = 50;
+})
+
+start.addEventListener("click", function() {
+    startGame(timeleft);
+})
 
 
 /*
@@ -96,7 +114,7 @@ const displayFinalScore = () => {
  */
 
 /* shuffle cards on load or on restart */
-window.onload = start(cardList);
+//window.onload = start(cardList);
 restart.addEventListener("click", () => {
     let shuffledCards = shuffle(deck.children);
     deck.replaceChildren(...shuffledCards);
@@ -105,11 +123,7 @@ restart.addEventListener("click", () => {
     stars[2].classList.add("fa-star-o");
 })
 
-function start(cardList) {
-    let shuffledCards = shuffle(cardList);
-    addCardEventListener(shuffledCards);
-    deck.replaceChildren(...shuffledCards);
-}
+
 
 // Shuffle function adapted from http://stackoverflow.com/a/2450976
 function shuffle(cards) {
