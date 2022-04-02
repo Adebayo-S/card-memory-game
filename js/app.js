@@ -13,10 +13,12 @@ const btnMedium = document.querySelector(".btn-medium");
 const btnHard = document.querySelector(".btn-hard");
 const btnX = document.querySelector(".btn-x");
 const start = document.querySelector(".start");
+const dropdown = document.querySelector(".dropdown-content");
+const dropdownBtn = document.querySelector(".btn-drop");
 
 //mode alert texts
 const easyText = document.querySelector(".easy-text");
-const mediumText = document.querySelector(".medium-text");
+const regularText = document.querySelector(".regular-text");
 const hardText = document.querySelector(".hard-text");
 const xText = document.querySelector(".x-text");
 
@@ -59,69 +61,86 @@ const incrementMove = () => {
     moves.innerHTML = parseInt(moves.innerHTML) + 1;
 }
 
-const displayFinalScore = () => {
-    const finalScore = document.querySelector(".final-score");
-    const finalStars = document.querySelector(".final-stars");
-    const finalMoves = document.querySelector(".final-moves");
-    const finalTime = document.querySelector(".final-time");
+const displayFinalScore = (status) => {
 
-    finalScore.innerHTML = document.querySelector(".moves").innerHTML;
-    finalStars.innerHTML = document.querySelector(".stars").innerHTML;
-    finalMoves.innerHTML = document.querySelector(".moves").innerHTML;
-    finalTime.innerHTML = document.querySelector(".timer").innerHTML;
+    const win = document.querySelector(".win");
 
-    document.querySelector(".modal").style.display = "block";
+    // const finalScore = document.querySelector(".final-score");
+    // const finalStars = document.querySelector(".final-stars");
+    // const finalMoves = document.querySelector(".final-moves");
+    // const finalTime = document.querySelector(".final-time");
+
+    // finalScore.innerHTML = document.querySelector(".moves").innerHTML;
+    // finalStars.innerHTML = document.querySelector(".stars").innerHTML;
+    // finalMoves.innerHTML = document.querySelector(".moves").innerHTML;
+    // finalTime.innerHTML = document.querySelector(".timer").innerHTML;
+
+    if (status == "win") {
+        document.querySelector(".win-mode").style.display = "flex";
+    }
+
+     document.querySelector(".gameover").style.display = "flex";
 }
 
 const startGame = (timeLeft) => {
     let shuffledCards = shuffle(cardList);
     addCardEventListener(shuffledCards);
     deck.replaceChildren(...shuffledCards);
+    document.querySelector(".start-mode").style.display = "none";
 
     function startTimer() {
         const countdown = document.querySelector(".countdown");
         if (timeLeft <= 0) {
-            clearInterval(timer);
             countdown.innerHTML = "0";
-            displayFinalScore();
+            clearInterval(timer);
+            displayFinalScore("lose");
         } else {
             countdown.innerHTML = "⏱: " + timeLeft;
         }
         timeLeft--;
     };
 
-    setInterval(startTimer, 1000);
+    let timer = setInterval(startTimer, 1000);
 }
+
+dropdownBtn.addEventListener("click", function() {
+    dropdown.classList.add("show");
+});
 
 btnEasy.addEventListener("click", function() {
     easyText.classList.add("selected");
-    mediumText.classList.remove("selected");
+    regularText.classList.remove("selected");
     hardText.classList.remove("selected");
     xText.classList.remove("selected");
+    dropdown.classList.remove("show");
     timeleft = 50;
 })
 
 btnMedium.addEventListener("click", function() {
     easyText.classList.remove("selected");
-    mediumText.classList.add("selected");
+    regularText.classList.add("selected");
     hardText.classList.remove("selected");
     xText.classList.remove("selected");
+    dropdown.classList.remove("show");
     timeleft = 30;
+    console.log(timeleft);
 })
 
 btnHard.addEventListener("click", function() {
     easyText.classList.remove("selected");
-    mediumText.classList.remove("selected");
+    regularText.classList.remove("selected");
     hardText.classList.add("selected");
     xText.classList.remove("selected");
+    dropdown.classList.remove("show");
     timeleft = 15;
 })
 
 btnX.addEventListener("click", function() {
     xText.classList.add("selected");
     easyText.classList.remove("selected");
-    mediumText.classList.remove("selected");
+    regularText.classList.remove("selected");
     hardText.classList.remove("selected");
+    dropdown.classList.remove("show");
     timeleft = 5;
 })
 
@@ -195,7 +214,7 @@ function addCardEventListener(cards){
                     if (openCards[0].innerHTML == openCards[1].innerHTML) {
                         matchAndLock();
                         if (matchedCards.length == 16) {
-                            displayFinalScore();
+                            displayFinalScore("win");
                         }
                     } else {
                         setTimeout(closeCards, 500);

@@ -15,14 +15,17 @@
             <h1>Matching Game</h1>
         </header>
 
-        <section class="modal start d-none">
+        <section class="modal start-mode">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="title-text">Match the cards in time</h2>
                 </div>
                 <div class="modal-body">
                     <div class="dropdown-menu">
-                        <button class="btn-drop">Select Level 👇</button>
+                        <button class="btn-drop">Select Level
+                            <span class="iconify" data-icon="charm:menu-hamburger">
+                            </span>
+                        </button>
                         <div class="dropdown-content">
                             <button class="dropdown-item btn-easy">Easy 👶</button>
                             <button class="dropdown-item btn-medium">Regular 😌</button>
@@ -30,17 +33,16 @@
                             <button class="dropdown-item btn-x">Hacker 😡</button>
                         </div>
                     </div>
+                    <div>
+                        <p class="mode easy-text selected">Easy mode 👶</p>
+                        <p class="mode regular-text">Regular mode 😌</p>
+                        <p class="mode hard-text">Hard mode 😱</p>
+                        <p class="mode x-text">Hacker mode 😡</p>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <p class="start start-text">Click to Start</p>
                 </div>
-            </div>
-
-            <div>
-                <p class="mode easy-text d-none selected">Easy mode</p>
-                <p class="mode regular-text d-none">Regular mode</p>
-                <p class="mode hard-text d-none">Hard mode</p>
-                <p class="mode x-text d-none">Hacker mode</p>
             </div>
         </section>
 
@@ -59,7 +61,7 @@
             </div>
         </section>
 
-        <section class="modal win d-none">
+        <section class="modal win-mode d-none">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="title-text">Congratulations!</h2>
@@ -141,7 +143,7 @@
             </li>
         </ul>
     </div>
-
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

@@ -80,8 +80,13 @@ h1 {
   flex-direction: column;
 }
 
+.iconify {
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
 .btn-drop {
-    background: #ffffff;
+    background: #03a78b;
     color: #000000;
     font-family: 'Rockwell','Open Sans', sans-serif;
     font-weight: 300;
@@ -115,17 +120,24 @@ h1 {
     display: none;
 }
 
-.dropdown-menu:hover  .dropdown-content {
-  display: block;
-}
-
-.dropdown-menu:active .dropdown-content {
+.dropdown-content.show {
     display: block;
 }
 
 .dropdown-item:hover {
   background-color: #ddd;
   cursor: pointer;
+}
+
+.mode {
+    font-family: 'Rockwell','Open Sans', sans-serif;
+    font-size: 0;
+    font-weight: 300;
+    color: #ffffff;
+}
+
+.selected {
+    font-size: 1.5em;
 }
 
 .modal-footer {
@@ -177,6 +189,10 @@ h1 {
     border-radius: 0.5em;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+}
+
+.start {
+    cursor: pointer;
 }
 
 /*
