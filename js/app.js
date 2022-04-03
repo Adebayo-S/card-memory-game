@@ -14,6 +14,7 @@ const btnHard = document.querySelector(".btn-hard");
 const btnX = document.querySelector(".btn-x");
 const start = document.querySelector(".start");
 const playAgain = document.querySelector(".play-again");
+const playAgainB = document.querySelector(".play-again-b");
 const dropdown = document.querySelector(".dropdown-content");
 const dropdownBtn = document.querySelector(".btn-drop");
 
@@ -24,9 +25,10 @@ const hardText = document.querySelector(".hard-text");
 const xText = document.querySelector(".x-text");
 
 //timer
-let timeLeft = 50;
-let setTime;
+let timeLeft = 60;
+let setTime = 60;
 let resetTime = false;
+let timer;
 
 let openCards = [];
 let matchedCards = [];
@@ -53,8 +55,10 @@ const closeMatchingCards = () => {
 
 const closeCards = () => {
         for (let i = 0; i < openCards.length; i++) {
-            openCards[i].classList.remove("open", "show");
+            openCards[i].classList.remove("open", "show", "no-match");
             openCards[i].clickable = true;
+            openCards[i].classList.remove("animate__flipInY");
+            // openCards[i].classList.remove("animate__shakeX");
         }
         openCards = [];
 }
@@ -66,23 +70,30 @@ const incrementMove = () => {
 
 const displayFinalScore = (status) => {
 
-    const win = document.querySelector(".win");
+    clearInterval(timer);
+    const countdown = document.querySelector(".countdown");
+    let timePassed = parseInt(countdown.innerHTML.split("⏱: ")[1]);
+    if (!timePassed){
+        timePassed = 0;
+    }
 
-    // const finalScore = document.querySelector(".final-score");
-    // const finalStars = document.querySelector(".final-stars");
-    // const finalMoves = document.querySelector(".final-moves");
-    // const finalTime = document.querySelector(".final-time");
+    let timeElapsed = setTime - timePassed;
 
-    // finalScore.innerHTML = document.querySelector(".moves").innerHTML;
-    // finalStars.innerHTML = document.querySelector(".stars").innerHTML;
-    // finalMoves.innerHTML = document.querySelector(".moves").innerHTML;
-    // finalTime.innerHTML = document.querySelector(".timer").innerHTML;
+    const finalMatches = document.querySelector(".final-matches");
+    const finalMoves = document.querySelector(".final-moves");
+    const finalTimeA = document.querySelector(".final-time-a");
+    const finalTimeB = document.querySelector(".final-time-b");
+
+    finalMatches.innerHTML = matchedCards.length;
+    finalMoves.innerHTML = document.querySelector(".moves").innerHTML;
+    finalTimeA.innerHTML = `${timeElapsed}`;
+    finalTimeB.innerHTML = `${timeElapsed}`;
 
     if (status == "win") {
         document.querySelector(".win-mode").style.display = "flex";
+    } else {
+        document.querySelector(".gameover").style.display = "flex";
     }
-
-     document.querySelector(".gameover").style.display = "flex";
 }
 
 const startGame = (timeLeft) => {
@@ -92,7 +103,6 @@ const startGame = (timeLeft) => {
     document.querySelector(".start-mode").style.display = "none";
 
     function startTimer() {
-
         const countdown = document.querySelector(".countdown");
 
         if (resetTime) {
@@ -107,9 +117,23 @@ const startGame = (timeLeft) => {
             countdown.innerHTML = "⏱: " + timeLeft;
         }
         timeLeft--;
+
+        updateStars();
     };
 
-    let timer = setInterval(startTimer, 1000);
+    timer = setInterval(startTimer, 1000);
+}
+
+const updateStars = () => {
+    if (moves.innerHTML > 35) {
+        stars[1].classList.add("fa-star-o");
+        document.querySelector(".star-badges").innerHTML = "⭐️";
+    } else if (moves.innerHTML > 25) {
+        stars[2].classList.add("fa-star-o");
+        document.querySelector(".star-badges").innerHTML = "⭐️⭐️";
+    } else {
+        document.querySelector(".star-badges").innerHTML = "⭐️⭐️⭐️";
+    }
 }
 
 dropdownBtn.addEventListener("click", function() {
@@ -122,7 +146,7 @@ btnEasy.addEventListener("click", function() {
     hardText.classList.remove("selected");
     xText.classList.remove("selected");
     dropdown.classList.remove("show");
-    timeLeft = 50;
+    timeLeft = 60;
     setTime = timeLeft;
 })
 
@@ -132,8 +156,7 @@ btnMedium.addEventListener("click", function() {
     hardText.classList.remove("selected");
     xText.classList.remove("selected");
     dropdown.classList.remove("show");
-    timeLeft = 30;
-    console.log(timeLeft);
+    timeLeft = 45;
     setTime = timeLeft;
 })
 
@@ -143,7 +166,7 @@ btnHard.addEventListener("click", function() {
     hardText.classList.add("selected");
     xText.classList.remove("selected");
     dropdown.classList.remove("show");
-    timeLeft = 15;
+    timeLeft = 25;
     setTime = timeLeft;
 })
 
@@ -166,25 +189,18 @@ playAgain.addEventListener("click", function() {
     location.reload();
 })
 
+playAgainB.addEventListener("click", function() {
+    location.reload();
+})
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
-/* shuffle cards on load or on restart */
-//window.onload = start(cardList);
 restart.addEventListener("click", () => {
     let shuffledCards = shuffle(deck.children);
     deck.replaceChildren(...shuffledCards);
     stars[0].classList.remove("fa-star-o");
     stars[1].classList.remove("fa-star-o");
-    stars[2].classList.add("fa-star-o");
+    stars[2].classList.remove("fa-star-o");
     resetTime = true;
 })
-
 
 
 // Shuffle function adapted from http://stackoverflow.com/a/2450976
@@ -206,28 +222,21 @@ function shuffle(cards) {
     return cards;
 }
 
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+const noMatch = () => {
+    openCards[0].classList.add("no-match", "animate__shakeX");
+    openCards[1].classList.add("no-match", "animate__shakeX");
+}
 
 function addCardEventListener(cards){
     for (let i = 0; i < cards.length; i++) {
         cards[i].clickable = true;
         cards[i].addEventListener("click", function() {
+            cards[i].classList.add("animate__flipInY");
             if (cards[i].clickable) {
                 displayCard(cards[i]);
                 cards[i].clickable = false;
                 incrementMove();
                 openCards.push(cards[i]);
-                console.log("openCards: " + openCards);
                 if (openCards.length == 2) {
                     if (openCards[0].innerHTML == openCards[1].innerHTML) {
                         matchAndLock();
@@ -235,7 +244,8 @@ function addCardEventListener(cards){
                             displayFinalScore("win");
                         }
                     } else {
-                        setTimeout(closeCards, 500);
+                        setTimeout(noMatch, 400);
+                        setTimeout(closeCards, 800);
                     }
                 }
             }

@@ -175,7 +175,7 @@ h1 {
     color: #e42626;
 }
 
-.win .title-text {
+.win-mode .title-text {
     color: #08c274;
 }
 
@@ -186,8 +186,9 @@ h1 {
     color: #ffffff;
 }
 
-.message-text:last-child {
-    margin-bottom: 60px;
+.message-text:last-of-type {
+    padding-top: -30px;
+    padding-bottom: 60px;
 }
 
 .var {
@@ -261,13 +262,21 @@ h1 {
     font-size: 33px;
 }
 
+.deck .card.no-match {
+    background: #f03d3d;
+}
+
 /*
  * Styles for the Score Panel
  */
 
+.countdown {
+    margin-right: 20px;
+}
+
 .score-panel {
     text-align: left;
-    width: 345px;
+    width: 400px;
     margin-bottom: 10px;
 }
 

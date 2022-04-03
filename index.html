@@ -7,6 +7,10 @@
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="css/app.css">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
 </head>
 <body>
 
@@ -60,11 +64,18 @@
                     <h2 class="title-text">Game Over</h2>
                 </div>
                 <div class="modal-body">
-                    <p class="message-text">You were able to find <span class="found var"></span> matches in <span class="time var"></span> seconds.</p>
+                    <p class="message-text">You were able to find <span class="final-matches var"></span> matches in <span class="final-time-a var"></span> seconds.</p>
                     <p class="message-text">Do you want to play again?</p>
-                </div>
-                <div class="modal-footer">
                     <button class="play-again btn">Play Again</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="footer">
+                    <p class="footer-text">Built by Adebayo Samuel</p>
+                    <div class="socials">
+                        <a href="https://github.com/Adebayo-S/card-memory-game" target="_blank"><span class="iconify" data-icon="charm:github" style="color: white;" data-width="25" data-height="25"></span></a>
+                        <a href="https://twitter.com/el_adebayor" target="_blank"><span class="iconify" data-icon="lucide:twitter" style="color: white;" data-width="25" data-height="25"></span></a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -75,17 +86,25 @@
                     <h2 class="title-text">Congratulations!</h2>
                 </div>
                 <div class="modal-body">
-                    <p class="message-text">You were able to find <span class="found var"></span> matches in <span class="time var"></span> seconds.</p>
+                    <p class="message-text">You were able to win with <span class="final-moves var"></span> moves in <span class="final-time-b var"></span> seconds.</p>
+                    <p class="message-text star-badges"></p>
                     <p class="message-text">Do you want to play again?</p>
+                    <button class="play-again-b btn">Play Again</button>
                 </div>
-                <div class="modal-footer">
-                    <button class="play-again btn">Play Again</button>
+            </div>
+            <div class="modal-footer">
+                <div class="footer">
+                    <p class="footer-text">Built by Adebayo Samuel</p>
+                    <div class="socials">
+                        <a href="https://github.com/Adebayo-S/card-memory-game" target="_blank"><span class="iconify" data-icon="charm:github" style="color: white;" data-width="25" data-height="25"></span></a>
+                        <a href="https://twitter.com/el_adebayor" target="_blank"><span class="iconify" data-icon="lucide:twitter" style="color: white;" data-width="25" data-height="25"></span></a>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section class="score-panel">
-            <div class="countdown"></div>
+            <span class="countdown"></span>
 
         	<ul class="stars">
         		<li><i class="fa fa-star"></i></li>
@@ -101,52 +120,52 @@
         </section>
 
         <ul class="deck">
-            <li class="card">
+            <li class="card animate__animated">
                 <i class="fa fa-diamond"></i>
             </li>
-            <li class="card">
+            <li class="card animate__animated">
                 <i class="fa fa-paper-plane-o"></i>
             </li>
-            <li class="card">
+            <li class="card animate__animated">
                 <i class="fa fa-anchor"></i>
             </li>
-            <li class="card">
+            <li class="card animate__animated">
                 <i class="fa fa-bolt"></i>
             </li>
-            <li class="card">
+            <li class="card animate__animated">
                 <i class="fa fa-cube"></i>
             </li>
-            <li class="card">
+            <li class="card animate__animated">
                 <i class="fa fa-anchor"></i>
             </li>
-            <li class="card">
+            <li class="card animate__animated">
                 <i class="fa fa-leaf"></i>
             </li>
-            <li class="card">
+            <li class="card animate__animated">
                 <i class="fa fa-bicycle"></i>
             </li>
-            <li class="card">
+            <li class="card animate__animated">
                 <i class="fa fa-diamond"></i>
             </li>
-            <li class="card">
+            <li class="card animate__animated">
                 <i class="fa fa-bomb"></i>
             </li>
-            <li class="card">
+            <li class="card animate__animated">
                 <i class="fa fa-leaf"></i>
             </li>
-            <li class="card">
+            <li class="card animate__animated">
                 <i class="fa fa-bomb"></i>
             </li>
-            <li class="card">
+            <li class="card animate__animated">
                 <i class="fa fa-bolt"></i>
             </li>
-            <li class="card">
+            <li class="card animate__animated">
                 <i class="fa fa-bicycle"></i>
             </li>
-            <li class="card">
+            <li class="card animate__animated">
                 <i class="fa fa-paper-plane-o"></i>
             </li>
-            <li class="card">
+            <li class="card animate__animated">
                 <i class="fa fa-cube"></i>
             </li>
         </ul>
