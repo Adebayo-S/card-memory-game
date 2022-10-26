@@ -1,7 +1,7 @@
 # Memory Game Project
 
 
-![gif of the game](./card-memory-game.gif)
+![gif of the game](./img/card-memory-game.gif)
 
 ## Table of Contents
 
